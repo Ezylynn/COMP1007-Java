@@ -1,0 +1,10 @@
+FINAL DOUBLE TOL = 0.0001;
+DOUBLE sarah, tony;
+INT luke, scott, luca;
+CHAR jane, matthew;
+
+(a) IF (luca%2 == 0 && scott%2 == 1) THEN
+(b) IF (jane=='S' || matthew=='S') THEN
+(c) IF (jane == matthew) THEN
+(d) IF ( Maths.abs(sarah-tony) < TOL) THEN
+(e) IF (luke > 0 || 25.0 <= sarah && sarah =< 125.0) THEN

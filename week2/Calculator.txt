@@ -1,0 +1,9 @@
+BEGIN Calculator
+  MAIN:
+    numOne <-- ASK USER WITH PROMPT "Please enter the first number"
+    numTwo <-- ASK USER WITH PROMPT "Please enter the second number"
+    answer <-- numOne + numTwo
+
+    PRINT "The number is " + " " + numTwo " = " answer
+  END MAIN:
+END

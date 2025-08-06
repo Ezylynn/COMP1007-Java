@@ -1,0 +1,13 @@
+START ASCII_Converter
+  START Main
+    UppercaseChar = INPUT ('Please enter an uppercase char: ')
+    UpCharNum = GET_NUM_VALUE(UppercaseChar)
+    LowCharNum = UpCharNum + 32
+    LowChar = LowCharNum
+
+
+    OUTPUT("ASCII value of " + UppercaseChar +" is " +UpCharNum)
+    OUTPUT("ASCII value of" + LowChar + " is " + "LowCharNum")
+
+  END Main
+END 

@@ -1,0 +1,8 @@
+String hello = "World";
+double x = 314.219, y = 240.213
+int mill = 1999, eng = 201, cap = 9;
+
+(a) (int)x - mill/100 --> 294
+(b) hello + eng --> World201 (if ur printing it out if not error)
+(c) (double)((eng-(int)y)/2) --> -19.5
+(d) (mil/(100*cap)) * cap -eng /10 --> 2 * 9 - 201 --> -183 - 

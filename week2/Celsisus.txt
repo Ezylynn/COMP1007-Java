@@ -1,0 +1,8 @@
+BEGIN Celsius
+  MAIN:
+    Temp <-- INPUT "Please input a temperature, in whole number and in Celsius" 
+    Round_Temp <-- ROUND_NEAREST_NUMBER(Temp)
+    Fahrenheit <-- (9/5 * Round_Temp) + 32
+    PRINT (Fahrenheit)
+  END MAIN
+END
