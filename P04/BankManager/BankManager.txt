@@ -1,0 +1,46 @@
+START BankManager
+
+  BOOLEAN continueProgram = TRUE 
+  FLOAT countSaving = 0
+  FLOAT totalDeposit = 0
+  FLOAT countDeposit = 0
+  FLOAT targetSaving = 0 
+
+  DO THEN
+      IF targetSaving =< totalDeposit AND targetSaving != 0 THEN
+          continueProgram = FALSE
+  WHILE continueProgram THEN
+    OUTPUT "What do you want to do?"
+    OUTPUT "Select from the following options:"
+    OUTPUT "1) Edit saving target"
+    OUTPUT "2) Deposit money"
+    OUTPUT "3) Display bank account info"
+    OUTPUT "0) Exit Program"
+
+    TRY  userInput = INPUT "Enter option here: " THEN
+        IF userInput == INT THEN
+            CASE userInput OF
+              1: 
+                  targetSaving = INPUT "Enter saving target ($): "
+                  countSaving = countSaving + 1
+              2:  
+                  totalDeposit = INPUT "Enter deposit value ($): "
+                  countDeposit = countDeposit + 1
+                
+              3:
+                  OUTPUT "Total balance: " + totalDeposit
+                  OUTPUT "Number of deposit made: " + countDeposit
+                  OUTPUT "Average deposit size: " + totalDeposit/countDeposit
+                  OUTPUT "Amount left until Saving Target reached: " + targetSaving - totalDeposit
+                  OUTPUT "Number of average of deposit til target reached" + targetSaving/totalDeposit
+              O:  
+                    OUTPUT "Terminating program. Exit 0"
+                    continueProgram = FALSE
+                    BREAK
+                OTHERWISE OUTPUT "Invalid integer, please try again"
+              ENDCASE
+          ELSE OUTPUT "Invalid input, input need to be an integer"
+        ENDIF
+    EXCEPTION OUTPUT "Invalid input, try again..."
+  ENDWHILE
+END
