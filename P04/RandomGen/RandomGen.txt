@@ -1,0 +1,13 @@
+START RandomGen
+  START Main
+    CREATE array OF INT
+    DO 
+      userInput = INPUT "Enter whole number 1 - 20"
+    WHILE TYPE userInput == INT && userInput >= 1 && userInput <= 20
+
+    FOR i = 0 FROM 1 TO userInput INC BY 1
+        array + RAND.INT()
+        OUTPUT "The value of element " + i + " of the array is " + array[i]
+    ENDFOR
+  END MAIN
+END

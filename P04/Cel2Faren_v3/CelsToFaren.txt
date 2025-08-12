@@ -1,0 +1,27 @@
+BEGIN Celsius
+  MAIN:
+    WHILE userInputInvalid == TRUE THEN
+    PRINT("Which temp scale are you converting from?")
+    PRINT("(C)elsisus")
+    PRINT("(F)arenheit")
+    userInput = INPUT()
+      IF userInput == 'C' OR userInput == 'c' || userInput == 'F' OR userInput == 'f' THEN
+        userInputInvalid = FALSE 
+      ELSE
+        OUTPUT "Invalid character, try again."
+    ENDWHILE
+
+    IF (userInput == 'C') THEN
+      tempInput = INPUT("Enter temp: ")
+      faren = (tempInput*9/5)+32
+      PRINT(faren)
+
+    ELSE IF (userInput == 'F') THEN
+      tempInput = INPUT("Enter temp: ")
+      cel = (tempInput - 32) * 5/9
+      PRINT(cel)
+
+      ELSE THEN
+        PRINT("Invalid Input. Terminating Program...")
+  END MAIN
+END

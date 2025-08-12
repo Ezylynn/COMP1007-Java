@@ -1,0 +1,8 @@
+START FixItrOutput
+  START MAIN
+    count = INPUT "Enter number of iterations to be output: "
+    FOR counter FROM 1 TO count
+        OUTPUT counter
+    ENDFOR
+  END MAIN
+END
