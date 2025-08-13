@@ -1,5 +1,7 @@
 START MathsOps
   START MAIN
+  WHILE continueLoop == TRUE THEN
+    TRY 
     PRINT("Welcome to PDI, week 3!")
     PRINT("What would you like to do?")
     PRINT(">1. Sum of 2 integers")
@@ -8,7 +10,6 @@ START MathsOps
     PRINT(">0. Exit")
 
     userInput = INPUT("Enter your choice: ")
-    IF (userInput.isInteger()){
       CASE userInput OF
         1 
           num1 = INPUT "Enter Num 1: "
@@ -29,13 +30,12 @@ START MathsOps
             PRINT "The two integers are not divisible by each other"
         0 : 
           PRINT ("End Program")
+          continueLoop = FALSE
         OTHERWISE OUTPUT "Invalid input, try again"
       ENDCASE
+    CATCH (Exception) 
+        OUTPUT "Invalid input, error occured: " + Exception
 
-    }
-
-    ELSE{
-      BREAK
-    }
+  ENDWHILE
   END MAIN
 END
