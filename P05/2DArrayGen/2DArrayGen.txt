@@ -1,0 +1,37 @@
+START 2DArrayGen
+  START MAIN
+    
+    WHILE continueLoop == TRUE THEN
+
+      WHILE rowInput <= 0 THEN
+        TRY 
+          rowInput = INPUT("Enter num of rows: ")
+        CATCH (EXCEPTION) THEN
+          OUTPUT "Invalid input, please enter a positive integer" + EXCEPTION
+      END WHILE
+
+      WHILE colInput <= 0 THEN
+        TRY 
+          colInput = INPUT("Enter num of cols: ")
+        CATCH (EXCEPTION) THEN
+          OUTPUT "Invalid input, please enter a positive integer" + EXCEPTION
+      END WHILE
+
+      continueLoop = FALSE
+
+    ENDWHILE
+
+    ARRAY user2DArray, ROW LENGTH = rowInput, COLUMN LENGTH = colInput
+
+    FOR row = 0 TO rowInput INCREMENT BY 1
+      FOR col = 0 TO colInput INCREMENT BY 1
+        user2DArray[row][col] = row * col
+      ENDFOR
+    ENDFOR
+
+    FOR rowIndex = 0 TO rowInput INCREMENT BY 1
+      OUTPUT user2DArray[rowIndex]
+
+
+  END MAIN
+END 

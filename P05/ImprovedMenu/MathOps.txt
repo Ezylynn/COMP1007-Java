@@ -1,0 +1,64 @@
+START MathsOps
+  START MAIN
+  WHILE continueLoop == TRUE THEN
+    TRY 
+    PRINT("Welcome to PDI, week 3!")
+    PRINT("What would you like to do?")
+    PRINT(">1. Sum of 2 integers")
+    PRINT(">2. Product of 2 integers")
+    PRINT(">3. Determine if 2 Integers are Divisible")
+    PRINT(">0. Exit")
+
+    userInput = INPUT("Enter your choice: ")
+      CASE userInput OF
+        1 :
+          OUTPUT METHOD mathAdd(num1, num2)
+        2 :
+          OUTPUT METHOD mathProduct(num1, num2)
+        3 :
+          IF METHOD mathDivisor == TRUE THEN
+            OUTPUT num1 + " and " + num2 + " is divisible by each other"
+          ELSE 
+            OUTPUT num1 + " and " + num2 + " is not divisible by each other"
+        0 : 
+          PRINT ("End Program")
+          continueLoop = FALSE
+        OTHERWISE OUTPUT "Invalid input, try again"
+      ENDCASE
+    CATCH (Exception) 
+        OUTPUT "Invalid input, error occured: " + Exception
+
+  ENDWHILE
+  END MAIN
+
+  METHOD: mathAdd 
+  IMPORT: num1 (INT), num2(INT)
+  EXPORT: numResult 
+  ASSERTION: "Output the sum between two numbers"
+  ALGORITHM:
+    numsResult = num1 + num2
+    RETURN numsResult
+  ENDALGORITHM
+
+  METHOD: mathProduct
+  IMPORT: num1 (INT), num2(INT)
+  EXPORT: numResult 
+  ASSERTION: "Output the product between two numbers"
+  ALGORITHM:
+    numsResult = num1 * num2
+    RETURN numsResult
+  ENDALGORITHM
+
+  METHOD: mathDivisor
+  IMPORT: num1 (INT), num2(INT)
+  EXPORT: numResult 
+  ASSERTION: "To check the divisibility between two numbers, output TRUE if divisible, output FALSE if not"
+  ALGORITHM:
+    IF (num1%num2==0 || num2%num1==0)
+      RETURN TRUE
+    ELSE 
+      RETURN FALSE
+  ENDALGORITHM
+
+
+END
