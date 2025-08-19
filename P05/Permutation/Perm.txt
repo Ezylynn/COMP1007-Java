@@ -1,0 +1,29 @@
+START Perm
+  START MAIN
+    DO 
+      n = INPUT("Enter number of elements")
+    WHILE n < 5 || n > 50
+
+    DO 
+      rMax = INPUT ("Enter max number of elements")
+    WHILE rMax < 2 || rMax >= n
+
+    myArray[rMax-1]
+
+    FOR r = 0, r > rMax-1 INCREMENT r BY 1 
+      myArray[r] = Factorial(n)/Factorial((n-(r+2)))
+    ENDFOR
+
+    OUTPUT myArray
+  END
+
+  METHOD: Factorial
+  IMPORT: n 
+  EXPORT: product
+  ALGORITHM:
+    product = 1 
+    FOR i = 1, i >= n INCREMENT i BY 1 
+      product = product * i
+    ENDFOR
+    RETURN product
+END Perm
