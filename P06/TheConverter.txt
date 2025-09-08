@@ -1,0 +1,46 @@
+START TheConverter
+  START MAIN
+
+  continueLoop = TRUE 
+
+  WHILE continueLoop == TRUE THEN
+    OUTPUT "> 1) Welcome Message"
+    OUTPUT "> 2) How to use this app"
+    OUTPUT "> 3) Convert Decimal Degrees to Degrees, Minutes & Seconds"
+    OUTPUT "> 4) Convert Degrees, Minutes & Seconds to Decimal Degrees"
+    OUTPUT "> 5) Exit!"
+
+    userInput = INPUT "Enter input"
+
+    CASE OF userInput 
+      1: OUTPUT "Hello World"
+      2: OUTPUT "cant be bother bro"
+      3:
+        degreeUnround= INPUT()
+        degreeRound = ROUND(degreeInput) // round down
+        minuteUnround = (degreeUnround - degreeRound) * 60
+        minuteRound = ROUND(minuteUnround)
+        secondUnround = (minuteUnround - minuteRound) * 60 
+        secondRound = ROUND(secondUnround)
+
+        OUTPUT degreeRound,minuteRound,secondRound
+
+      4:
+        degree = INPUT()
+        min = INPUT()
+        sec = INPUT()
+
+        convertSec = sec/60
+        convertMin = min + convertSec
+        convertDeg = min/60 
+
+        OUTPUT degree + convertDeg
+
+      5: continueLoop = FALSE
+
+
+
+
+  ENDWHILE
+  END MAIN
+END
