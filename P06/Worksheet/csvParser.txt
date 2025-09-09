@@ -4,21 +4,83 @@ START csvParser
     ARRAY INT studentID
     ARRAY DOUBLE marks
 
-    fileName = INPUT()
-    readFile(fileName, names, studentID, marks)
+
+    fileInput = INPUT()
+    readFile(fileInput, names, studentID, marks)
+
 	END MAIN
 
   METHOD: readFile
-  IMPORT: fileName (String), names (Array), studentID (Array), marks (Array)
-  EXPORT: none
-    theFile = OPENFILE filename
-    READ line FROM theFile // Read first line from file 
-    WHILE (theFile!=EOF) //EOF = end of file 
-      processFile()
-    ENDWHILE
-    CLOSEFILE theFile
-  END readFile
+  IMPORT: fileInput (STRING), names (ARRAY), studentID (ARRAY), marks (ARRAY)
+  EXPORT: NONE
+    // implement try catch condtion for IOexception 
+    TRY 
+      theFile = OPENFILE fileInput 
+      lineNum = 0 
+      READ line FROM theFile
+      WHILE (line != EOF) THEN
+        IF lineNum > 20 THEN
+          OUTPUT "Total number of line exceed 20. Stopping program."
+          BREAK
+        ENDIF
+        ELSE
+          processFile(line, names, studentID, marks)
+          lineNum = lineNum + 1
+          READ line FROM theFile
+        ENDELSE
+      ENDWHILE
+      printFile(names (ARRAY), studentID (ARRAY), marks (ARRAY))
+    ENDTRY
+    CATCH IOException as e
+      OUTPUT "File handling error: " + e
+    ENDCATCH
+  ENDMETHOD
 
   METHOD: processFile 
-  IMPORT: 
+  IMPORT: line (STRING), names (ARRAY), studentID (ARRAY), marks (ARRAY)
+  EXPORT: NONE
+    TRY
+      ARRAY STRING tempStorage = line.SPLIT(,) 
+      ARRAY[1] = INT ARRAY[1] //typecasting str 'id' --> int
+      ARRAY[2] = DOUBLE ARRAY[2] //typecasting str 'mark' --> double
+
+      IF tempStorage[0] != " " || tempStorage[0] != " " THEN 
+        names[names.LENGTH -1] = tempStorage[0]
+      ENDIF
+      ELSE
+        OUTPUT "Invalid data format. Skipping to next row"
+        RETURN NONE //return void to stop method
+      ENDELSE
+
+      IF tempStorage[1] > 10,000,000 AND  tempStorage[1] <= 99,999,999 THEN 
+        names[names.LENGTH -1] = tempStorage[1]
+      ENDIF
+      ELSE
+        OUTPUT "Invalid data format. Skipping to next row"
+        RETURN NONE //return void to stop method
+      ENDELSE
+        
+      IF tempStorage[2] > 0 AND  tempStorage[2] <= 100 THEN 
+        names[names.LENGTH -1] = tempStorage[2]
+      ENDIF
+      ELSE
+        OUTPUT "Invalid data format" 
+        RETURN NONE //return void to stop method
+      ENDELSE
+
+    ENDTRY
+
+    CATCH Exception as E
+      OUTPUT "Error caught: " + e
+    ENDCATCH
+  ENDMETHOD
+
+  METHOD: printFile 
+  IMPORT: names (ARRAY), studentID (ARRAY), marks (ARRAY)
+  EXPORT: NONE
+    OUTPUT "Name  Student ID  Marks" 
+    FOR (i = 0, UNTIL i = names.LENGTH THEN INCREMENT BY 1
+      OUTPUT names[i] studentID[i] marks[i]
+    ENDFOR
+  ENDMETHOD
 END
