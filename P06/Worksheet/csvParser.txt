@@ -1,0 +1,24 @@
+START csvParser
+	START MAIN
+    ARRAY STRING names
+    ARRAY INT studentID
+    ARRAY DOUBLE marks
+
+    fileName = INPUT()
+    readFile(fileName, names, studentID, marks)
+	END MAIN
+
+  METHOD: readFile
+  IMPORT: fileName (String), names (Array), studentID (Array), marks (Array)
+  EXPORT: none
+    theFile = OPENFILE filename
+    READ line FROM theFile // Read first line from file 
+    WHILE (theFile!=EOF) //EOF = end of file 
+      processFile()
+    ENDWHILE
+    CLOSEFILE theFile
+  END readFile
+
+  METHOD: processFile 
+  IMPORT: 
+END
