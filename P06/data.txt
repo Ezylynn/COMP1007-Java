@@ -1,0 +1,6 @@
+id,name,age,grade,email
+1,Alice Johnson,20,A,alice@example.com
+2,Bob Smith,19,B,bob.smith@example.com
+3,Charlie Lee,21,C,charlie.lee@example.com
+4,Diana Adams,22,A,diana.adams@example.com
+5,Ethan Brown,20,B,ethan.brown@example.com
