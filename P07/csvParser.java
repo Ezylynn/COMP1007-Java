@@ -26,6 +26,7 @@ public class csvParser{
         System.out.println("2> Calculate test mark average");
         System.out.println("3> View all student data");
         System.out.println("4> Add a new student");
+        System.out.println("5> Export your file");
         System.out.println("0> Exit");
         System.out.print("Enter input: ");
         userInput = sn.nextInt();
@@ -38,14 +39,17 @@ public class csvParser{
             readFile(fileInput, names, studentID, marks); //import file into program 
             break;
           case 2:
-            double avg = avgMark(names,marks,lineNum); // calculate avg mark, exlcuding invalid row
+            double avg = avgMark(names,marks); // calculate avg mark, exlcuding invalid row
             System.out.println("Avergage score: " + avg);
             break;
           case 3:
             printFile(names,studentID,marks, lineNum); // iterate over parallel arrays to print data rows
             break;
           case 4:
-            writeFile(names, studentID, marks,fileInput,lineNum); // append new data row to file
+            writeFile(names, studentID, marks); // append new data row to file
+            break;
+          case 5:
+            exportFile(names, studentID, marks);
             break;
           case 0:
             continueLoop = false; //exit program
@@ -100,7 +104,7 @@ public class csvParser{
 
       // data row is skipped if username is empty, id not between 1000000 & 9999999, mark is not between 0 & 100
       if (!name.trim().isEmpty() && (id >= 10000000 && id <= 99999999) && (mark >= 0 && mark <= 100)){
-        names[index] = name;
+        names[index] = name; // index <--> line num
         marks[index] = mark;
         studentID[index] = id;
       }
@@ -123,12 +127,8 @@ public class csvParser{
   }
 
 
-  public static void writeFile(String[] names, int[] studentID, double[] marks, String fileInput, int numStudent){
+  public static void writeFile(String[] names, int[] studentID, double[] marks){
     try{
-      FileOutputStream file = new FileOutputStream(fileInput, true); // create obj for the output stream
-      OutputStreamWriter osw = new OutputStreamWriter(file); // create obj to write to the data stream
-      PrintWriter pw = new PrintWriter(osw); // more efficient writer than than osw
-
       String name;
       int id;
       double mark;
@@ -137,7 +137,7 @@ public class csvParser{
 
       while (continueLoop){
           // if num student exceed 20 then won't add anymore student
-          if (numStudent == 20){ // numStudent = lineNum, same thing
+          if (lineNum == 20){ // lineNum <--> num student
             System.out.println("Cannot add new student, storage is full");
             continueLoop = false;
           }
@@ -151,16 +151,10 @@ public class csvParser{
 
             if (!name.trim().isEmpty() && (id >= 10000000 && id <= 99999999) && (mark >= 0 && mark <= 100)){
               System.out.println("Inserting data to file...");
-              // adding data row to parrallel array --> prevent the need to re-load the file again
-              names[numStudent] = name;
-              marks[numStudent] = mark;
-              studentID[numStudent] = id;
-
-              // update the file 
-              pw.println(name+","+id+","+mark);
-              lineNum += 1;
-              pw.close(); // close writer to save up resources
-              continueLoop = false;
+              // adding data row to parrallel array
+              names[lineNum ] = name;
+              marks[lineNum] = mark;
+              studentID[lineNum] = id;
             }
             else{
               System.out.println("Invalid data format. Try again");
@@ -172,10 +166,40 @@ public class csvParser{
       System.out.println("Unexpected error occur:" + e);
     }
   }
+  
+  public static void exportFile(String[] names, int[] studentID, double[] marks){
+    try{
+      String fname;
+      Scanner sn = new Scanner(System.in);
+
+      System.out.print("Enter file name: ");
+      fname = sn.next();
 
 
+      if (!fname.isEmpty()){
+        FileOutputStream file = new FileOutputStream(fname); // create obj for the output stream
+        OutputStreamWriter osw = new OutputStreamWriter(file); // create obj to write to the data stream
+        PrintWriter pw = new PrintWriter(osw); // more efficient writer than than osw
 
-  public static double avgMark(String[] names, double[] marks, int lineNum){
+        System.out.println("Exporting data to file...");
+        // update the file 
+        for (int i = 0; i < lineNum; i++){
+          pw.println(names[i]+","+studentID[i]+","+marks[i]);
+        }
+        pw.close(); // close writer to save up resources
+      }
+      else{
+        System.out.println("Invalid data format. Try again");
+      }
+        }
+      
+    catch(Exception e){
+      System.out.println("Unexpected error occur:" + e);
+    }
+  }
+
+
+  public static double avgMark(String[] names, double[] marks){
     double sum = 0;
     for (int i =0; i<lineNum; i++){
       // filter out row that invalid
