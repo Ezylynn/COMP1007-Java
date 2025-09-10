@@ -1,0 +1,3 @@
+Christopher Lee,12345678,-2
+Sophia Nguyen,13579246,88.0
+Ethan Wright,17654321,73.2
