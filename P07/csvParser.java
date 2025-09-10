@@ -1,6 +1,6 @@
 /*
  * Author: Binh
- * Purpose: A functional CSV parser to manage students assessments data
+ * Purpose: A functional CSV parser to manage students assessments data. User is able to import file, workout group average score, view data table, adding new data row & export data to file
  * Date: 2025-09-10
  */
 import java.util.*; // import java lib for Scanner
@@ -120,9 +120,9 @@ public class csvParser{
   }
 
   public static void printFile(String[] names, int[] studentID, double[] marks, int max){
-    System.out.println("No   Name   Student ID   Marks");
+    System.out.println("No   Name   Student ID   Mark   Grade");
     for (int i = 0; i < max; i++){
-      System.out.println((i+1) + "   " + names[i] + "   " + studentID[i] + "   " + marks[i]);
+      System.out.println((i+1) + "   " + names[i] + "   " + studentID[i] + "   " + marks[i] + "   " + getGrade(marks[i]));
     }
   }
 
@@ -211,6 +211,25 @@ public class csvParser{
       }
     }
     return sum/lineNum;
+  }
+
+  public static String getGrade(double mark){
+    double value = mark;
+    if (value >= 80 && value <= 100){
+      return "HD";
+    }
+    else if (value >= 70){
+      return "D";
+    }
+    else if (value >= 60){
+      return "C";
+    }
+    else if (value >= 50){
+      return "P";
+    }
+    else{
+      return "F";
+    }
   }
 
 }
