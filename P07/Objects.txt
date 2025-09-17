@@ -1,0 +1,26 @@
+CLASS Person
+  CLASS FIELDS:
+    age (Int)
+    sex (String)
+    ethnic (String)
+    name (String)
+
+
+CLASS Student:
+  CLASS FIELDS:
+    Inherits From Person 
+    studentID (Int)
+    degree (String)
+    currentYear (Int)
+    currentUnits (Array of String)
+
+CLASS Staff:
+  CLASS FIELDS:
+    Inherits From Person 
+    staffID (Int)
+    occupation (String)
+    yearEmployed (Int)
+    currentUnitsTeach (Array of String)
+
+
+

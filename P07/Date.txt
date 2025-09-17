@@ -1,0 +1,223 @@
+CLASS Date
+  CLASS FIELDS:
+    day (Integer)
+    month (Integer)
+    year (Integer)
+
+  CONSTRUCTOR with PARAMETERS 
+  IMPORT: pDay (Integer), pMonth (Integer), pYear (Integer)
+  EXPORT: None 
+  ALGORITHM:
+    TRY
+      IF (validateYear(pYear) AND validateMonth(pMonth) AND validateDay(pDay, pMonth, pYear)) THEN
+        day = pDay 
+        month = pMonth 
+        year = pYear 
+      ELSE 
+        OUTPUT "Invalid date input"
+        THROW error 
+    ENDTRY
+    CATCH error as e 
+      OUTPUT e
+  ENDCONSTRUCTOR
+
+  CLASS METHODS:
+    
+    ACCESSOR: equals
+    IMPORT: pObject (Object)
+    EXPORT: isEqual (Boolean)
+        isEqual = FALSE
+        IF pObject IS A Date THEN
+        TRANSFORM pObject TO Date NAMED inDate
+          IF (day EQUALS inDate.getDay()) AND (month EQUALS inDate.getMonth()) AND (year EQUALS inDate.getYear()) THEN
+          isEqual = True
+        RETURN isEqual
+    ENDACCESSOR
+    
+    ACCESSOR: toString
+    IMPORT: None
+    EXPORT: dateString (String)
+      dateString = "Day: " + getSuffix() + " Month: " + getMonth() + " Year: " + getYear()
+      RETURN personString
+    ENDACCESSOR
+
+    ACCESSOR: validateYear 
+    IMPORT: year (Integer)
+    EXPORT: Boolean 
+    ALGORITHM:
+      min = 1800
+      max = 9999
+      boolValue = null
+      IF year >= 1800 AND year <= 9999 THEN
+        boolValue = True
+      ELSE
+        boolValue = False
+      ENDIF
+      RETURN boolValue
+    ENDACCESSOR
+
+    ACCESSOR: validateMonth 
+    IMPORT: month (Integer)
+    EXPORT: Boolean 
+    boolValue = null
+    ALGORITHM:
+      IF month >= 1 AND month <= 12 THEN 
+        boolValue = True
+      ELSE 
+        boolValue = False
+      ENDIF
+      RETURN boolValue
+    ENDACCESSOR
+
+    ACCESSOR: validateDay 
+    IMPORT: day (Integer), month (Integer), year (Integer)
+    EXPORT: Boolean 
+    ALGORITHM:
+      boolValue = null
+      IF day >= 1 AND day <= 31 THEN
+        IF month == 2 THEN
+          leapYear = isLeapYear(year)
+          IF (leapYear) THEN
+            IF (day <= 29) THEN
+              boolValue = True
+          IF (day <= 28) THEN
+              boolValue = True
+        IF (month == 1 OR month == 3 OR month == 7 OR month == 8 OR month == 10 OR month == 12) <= 31) THEN
+          boolValue = True
+        IF (month == 4 OR month == 6 OR month == 9 OR month == 11) AND (day <= 30) THEN
+          boolValue = True
+      ELSE 
+          boolValue = False 
+      RETURN boolValue
+      ENDIF
+    ENDACCESSOR
+
+    ACCESSOR: isLeapYear 
+    IMPORT: year (Int)
+    EXPORT: year (Boolean)
+    ALGORITHM:
+      TRY 
+        IF validateYear THEN
+          RETURN (year % 4 == 0 and year % 100 != 0) OR (year % 400 == 0)
+
+        ELSE 
+          OUTPUT "Invalid input parameter"
+          THROW error
+      ENDTRY
+      CATCH error as e 
+        OUTPUT e 
+    ENDACCESSOR
+
+    ACCESSOR: getSuffix 
+    IMPORT: None 
+    EXPORT: concat (String)
+    ALGORITHM:
+      TRY
+        suffix = none
+        CASE day OF 
+          1: suffix = "st"
+          2: suffix = "nd"
+          3: suffix = "rd"
+          DEFAULT: suffix "th"
+        concat = day + suffix 
+        RETURN concat
+      CATCH error as e
+        OUTPUT e
+    ENDACCESSOR
+
+    ACCESSOR: getDay
+    IMPORT: None
+    EXPORT: day (Integer)
+    ALGORITHM:
+      TRY 
+        RETURN day 
+      CATCH error as e
+        OUTPUT e
+    ENDACCESSOR
+
+
+    ACCESSOR: getMonth 
+    IMPORT: None 
+    EXPORT: month (Integer)
+    ALGORITHM:
+      TRY 
+        RETURN month 
+      CATCH error as e
+        OUTPUT e
+    ENDACCESSOR
+
+    ACCESSOR: getYear 
+    IMPORT: None 
+    EXPORT: year (Integer)
+    ALGORITHM:
+      TRY 
+        RETURN year 
+      CATCH error as e
+        OUTPUT e
+    ENDACCESSOR
+
+    MUTATOR: setYear 
+    IMPORT: pYear (Integer) 
+    EXPORT: None
+    ALGORITHM:
+      TRY 
+        IF validateYear(pYear) THEN
+          year = pYear 
+        ELSE 
+          OUTPUT "Invalid input parameter"
+          THROW error
+      ENDTRY
+      CATCH error as e 
+        OUTPUT e 
+    ENDMUTATOR
+
+    MUTATOR: setMonth 
+    IMPORT: pMonth (Integer) 
+    EXPORT: None 
+    ALGORITHM:
+      TRY 
+        IF validateMonth(pMonth) THEN
+          month = pMonth 
+        ELSE 
+          OUTPUT "Invalid input parameter"
+          THROW error
+      ENDTRY
+      CATCH error as e 
+        OUTPUT e 
+    ENDMUTATOR
+
+    MUTATOR: setDay
+    IMPORT: pDay (Integer) 
+    EXPORT: none 
+    ALGORITHM:
+      TRY 
+        IF validateDay(pDay, month, year) THEN
+          day = pDay
+        ELSE 
+          OUTPUT "Invalid input parameter"
+          THROW error
+      ENDTRY
+      CATCH error as e 
+        OUTPUT e 
+    ENDMUTATOR
+
+
+CLASS DateTime 
+  INHERITS FROM Date
+  CLASS FIELDS:
+    hours (Integer)
+    minutes (Integer)
+    seconds (Integer)
+
+    ACCESSOR: validateData
+    IMPORT: none
+    EXPORT: boolValue (Boolean)
+    ALGORITHM:
+      boolValue = False
+      IF (hours >= 0 AND hours <= 60) AND (minutes >= 0 AND minutes <= 60) AND (seconds >= 0 AND seconds <= 60) THEN 
+        boolValue = True 
+      ENDIF
+      RETURN boolValue
+    ENDACCESSOR
+
+
